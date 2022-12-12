@@ -54,13 +54,13 @@ def setRandFile(F,listrandom):
     except:
       print("New JSON not written")
     f.close()
-def setPixels(Brightness,lastrandom,given,argc,OnOff):
+def setPixels(Illumination,lastrandom,given,argc,OnOff):
   random.seed(lastrandom[0])
   random.shuffle(lastrandom)
-  Brightness = Brightness(Brightness)
-  for j in lastrandom[:Brightness:]:
+  Illumination = Brightness(Illumination)
+  for j in lastrandom[:Illumination:]:
     OnOff[j-1] = 1
-  return OnOff  
+  return OnOff
 
 # later: if randomness is static, change seed by timestamp
 #random.seed()
@@ -69,18 +69,18 @@ lastrandom = getRandFile(sys.argv[1],[]) if argc>1 else range(1,64)
 Darkness = int(sys.argv[2]) if argc>2 else 2
 # later: make sure List has the size of at least 64
 sz = 64
-# later: can increase brightness by Dynamism
+# later: can change increase rate by Dynamism
 # later: allow scale of 5, 10, 12, 16, 100, and 64 (by default)
 #Dynamism = 8
-Zeros = [0] * sz # [0 for it in range(sz)]
 
 #if sys.argv[2]=="monitor" :
 #  while(true):
 if Darkness==0:
     sense.clear()
-    break
+    exit#break
 if Darkness<0:
     exit
+Zeros = [0] * sz # [0 for it in range(sz)]
 OnOff = setPixels(Darkness,lastrandom,sys.argv,argc,Zeros)
 toggle(sense,OnOff)
 #
